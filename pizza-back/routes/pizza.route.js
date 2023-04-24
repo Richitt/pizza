@@ -3,7 +3,6 @@ let mongoose = require("mongoose"),
     csv = require('fast-csv'),
     router = express.Router();
     fs = require('fs');
-    pizzaController = require('../controllers/getPizza');
 
 let pizzaSchema = require("../models/Pizza");
 
@@ -80,9 +79,7 @@ function findStreak(list){
             currDay=temp[i]["date"];
         }
     }
-    console.log("came back out");
-    console.log(finalArray);
-    return temp;
+    return finalArray;
 }
 
 // Create Pizza
@@ -98,8 +95,32 @@ router.post("/createPizza", (req, res, next) => {
     })
   });
 
-// Read pizza
-// router.route('/').get(pizzaController.getAllPizzas)
+// Get Pizza Streak endpoint
+router.get('/pizzaStreak', async (req, res) => {
+    pizzaSchema.find()
+    .then((result) => {
+        if(Object.keys(result).length === 0){
+            pizzaSchema.create(defaultFile)
+            .then((result) => {
+                result = findStreak(JSON.stringify(result));
+                res.json(result);
+            })
+            .catch((err) => {
+                res.send(err)
+            })
+            
+        }
+        else{
+            result = findStreak(JSON.stringify(result));
+            res.send(result);
+        }
+    })
+    .catch((err) => {
+        res.send(err)
+    })
+});
+
+//Get all Pizzas
 router.get("/", async (req, res) => {
     pizzaSchema.find()
     .then((result) => {
@@ -115,7 +136,6 @@ router.get("/", async (req, res) => {
         }
         else{
             console.log("ey?");
-            result = findStreak(JSON.stringify(result));
             res.send(result);
         }
     })
@@ -123,49 +143,30 @@ router.get("/", async (req, res) => {
         res.send(err)
     })
   });
-// Update pizza
-router.route("/updatePizza/:id")
-    .get((req, res) => {
-        console.log("asdfasdfasdfadada");
-    pizzaSchema.findById(
-        req.params.id, (error, data) => {
-            if (error) {
-                return next(error);
-            } else {
-                res.json(data);
-            }
-        });
+
+
+  // could use put, but this is more malleable as an update route
+  // since i want to have a body
+  // this updates meats in a person's order
+  router.post("/updatePizza/:id", async (req, res, next) => {
+    pizzaSchema.updateMany({person: req.params.id}, {"meat-type": req.body.meatType}) 
+    .then((result) => {
+        res.send(result);
     })
-    .put((req, res, next) => {
-        pizzaSchema.findByIdAndUpdate(
-        req.params.id,
-        {
-            $set: req.body,
-        },
-        (error, data) => {
-            if (error) {
-                return next(error);
-                console.log(error);
-                } else {
-                    res.json(data);
-                    console.log("Pizza updated successfully !");
-                }
-            }
-        );
+    .catch((err) => {
+        res.send(err)
+    })
   });
 
-router.delete("/deletePizza/:id", 
-  (req, res, next) => {
-    pizzaSchema.findByIdAndRemove(
-        req.params.id, (error, data) => {
-      if (error) {
-        return next(error);
-      } else {
-        res.status(200).json({
-          msg: data,
-        });
-      }
-    });
+  //delete all pizzas from a given person
+  router.delete("/deletePizza/:id", async (req, res, next) => {
+    pizzaSchema.deleteMany({person: req.params.id})
+    .then((result) => {
+        res.send(result);
+    })
+    .catch((err) => {
+        res.send(err)
+    })
   });
-    
+
   module.exports = router;
