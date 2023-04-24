@@ -6,7 +6,7 @@ let pizzaSchema = new Schema({
   person: {
     type: String
   },
-  meatType: {
+  'meat-type': {
     type: String
   },
   date: {
