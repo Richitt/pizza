@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const PizzaRow = (props) =>{
-    const {_id, name, meatType, date} = props.obj;
+    var meatType = props.obj["meat-type"];
+    var person = props.obj["person"];
+    var date = props.obj["date"];
 
     return (
         <tr>
-          <td>{name}</td>
+          <td>{person}</td>
           <td>{meatType}</td>
           <td>{date}</td>
         </tr>

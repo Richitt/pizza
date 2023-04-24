@@ -5,32 +5,33 @@ import { FormGroup, FormControl, Button } from "react-bootstrap";
   
 const PizzaForm = (props) => {
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Required"),
-    meatType: Yup.string().required("Required"),
+    person: Yup.string().required("Required"),
+    'meat-type': Yup.string().required("Required"),
     orderDate: Yup.date().required("Required"),
   });
   console.log("came in here");
   console.log(props);
+  console.log(props.children);
   return (
     <div className="form-wrapper">
       <Formik {...props} validationSchema={validationSchema}>
-        <Form>
+        <Form  onSubmit = {props.onSubmit}>
           <FormGroup>
             Name: 
-            <Field name="name" type="text" 
+            <Field name="person" type="text" 
                 className="form-control" />
             <ErrorMessage
-              name="name"
+              name="person"
               className="d-block invalid-feedback"
               component="span"
             />
           </FormGroup>
           <FormGroup>
             MeatType: 
-            <Field name="meatType" type="text" 
+            <Field name='meat-type' type="text" 
                 className="form-control" />
             <ErrorMessage
-              name="meatType"
+              name='meat-type'
               className="d-block invalid-feedback"
               component="span"
             />
@@ -45,7 +46,7 @@ const PizzaForm = (props) => {
               component="span"
             />
           </FormGroup>
-          <Button variant="danger" size="lg" 
+          <Button variant="danger" size="lg"
             block="block" type="submit">
             {props.children}
           </Button>

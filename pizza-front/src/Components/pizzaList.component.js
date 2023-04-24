@@ -12,6 +12,8 @@ const PizzaList = () => {
         axios
           .get("http://localhost:4000/pizzas/")
           .then(({ data }) => {
+            console.log("came back");
+            console.log(data);
             setPizzas(data);
           })
           .catch((error) => {
