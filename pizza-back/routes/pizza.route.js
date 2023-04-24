@@ -120,6 +120,18 @@ router.get('/pizzaStreak', async (req, res) => {
     })
 });
 
+// Get pizza info of a single person
+router.get('/pizzaPerson', async (req, res) => {
+    pizzaSchema.find({person: req.body.name})
+    .then((result) => {
+        res.send(result);
+    })
+    .catch((err) => {
+        res.send(err)
+    })
+});
+
+
 //Get all Pizzas
 router.get("/", async (req, res) => {
     pizzaSchema.find()
