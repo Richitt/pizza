@@ -16,6 +16,7 @@ const PizzaForm = (props) => {
       <Formik {...props} validationSchema={validationSchema}>
         <Form>
           <FormGroup>
+            Name: 
             <Field name="name" type="text" 
                 className="form-control" />
             <ErrorMessage
@@ -25,6 +26,7 @@ const PizzaForm = (props) => {
             />
           </FormGroup>
           <FormGroup>
+            MeatType: 
             <Field name="meatType" type="text" 
                 className="form-control" />
             <ErrorMessage
@@ -34,10 +36,11 @@ const PizzaForm = (props) => {
             />
           </FormGroup>
           <FormGroup>
-            <Field name="orderDate" type="number" 
+            Date:
+            <Field name="date" type="number" 
                 className="form-control" />
             <ErrorMessage
-              name="orderDate"
+              name="date"
               className="d-block invalid-feedback"
               component="span"
             />

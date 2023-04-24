@@ -15,7 +15,7 @@ const EditPizza = (props) => {
   const onSubmit = (pizzaObject) => {
     axios
       .put(
-        "http://localhost:4000/pizzas/editPizza" +
+        "http://localhost:4000/pizzas/updatePizza" +
           props.match.params.id,
         pizzaObject
       )
