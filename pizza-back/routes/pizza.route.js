@@ -3,7 +3,7 @@ let mongoose = require("mongoose"),
     csv = require('fast-csv'),
     router = express.Router();
     fs = require('fs');
-
+    pizzaController = require('../controllers/getPizza');
 
 let pizzaSchema = require("../models/Pizza");
 
@@ -12,7 +12,6 @@ fs.readFile('./routes/defaultFile/data.csv', (err,inputD)=>{
     if(err){
         throw err;
     }
-    console.log("started");
     defaultFile = csvJSON(inputD);
 })
 function csvJSON(csv){
@@ -28,16 +27,67 @@ function csvJSON(csv){
         }
         result.push(obj);
     }
-    console.log(JSON.stringify(result))
     return JSON.parse(JSON.stringify(result)); //JSON
+}
+function findStreak(list){
+    // given an array of days + eaten food
+    // keep going until the amount of pizzas on a day is less
+    // easiest way: first make all dates (days), then sort the days
+    // then put them into a map, and simply call each day and once its lower stop
+    // return the resulting array of days
+    
+    var temp = JSON.parse(list);
+    for(i = 0; i<temp.length; i++){
+        var days = Math.floor(new Date(temp[i]["date"]).getTime() / (1000*60*60*24));
+        temp[i]["days"] = days;
+
+    }
+    temp = temp.sort((a, b) => {
+        return a["days"] - b["days"];
+    })
+
+    var largestStreak=0;
+    var streak = 0;
+    var pastpizzas = 0;
+    var pizzas = 0;
+    var currDay = temp[0]["date"];
+    var dayList = [];
+    var finalArray = [];
+    for (i = 0; i<temp.length; i++){
+        if(temp[i]["date"] == currDay){
+            pizzas++;
+        }
+        else{
+            if(pizzas>pastpizzas){
+                streak++;
+                //last day was part of the streak
+                dayList.push({pizzaStreak: streak, day: currDay});
+                if(streak>largestStreak){
+                    //if streak is larger, update the largest date array
+                    finalArray = dayList;
+                }
+                largestStreak = Math.max(largestStreak, streak);
+            }
+            else{
+                streak = 1;
+                //empty day array;
+                dayList = [];
+                //start finding a new one
+                dayList.push({pizzaStreak: streak, day: currDay});
+            }
+            pastpizzas = pizzas;
+            pizzas=1;
+            currDay=temp[i]["date"];
+        }
+    }
+    console.log("came back out");
+    console.log(finalArray);
+    return temp;
 }
 
 // Create Pizza
 
 router.post("/createPizza", (req, res, next) => {
-    console.log("asdfasdfasdf");
-    console.log(req);
-    console.log(req.body);
     pizzaSchema.create(req.body)
     .then((result) => {
         console.log("aa" + result);
@@ -49,6 +99,7 @@ router.post("/createPizza", (req, res, next) => {
   });
 
 // Read pizza
+// router.route('/').get(pizzaController.getAllPizzas)
 router.get("/", async (req, res) => {
     pizzaSchema.find()
     .then((result) => {
@@ -63,6 +114,8 @@ router.get("/", async (req, res) => {
             
         }
         else{
+            console.log("ey?");
+            result = findStreak(JSON.stringify(result));
             res.send(result);
         }
     })
@@ -70,7 +123,6 @@ router.get("/", async (req, res) => {
         res.send(err)
     })
   });
-
 // Update pizza
 router.route("/updatePizza/:id")
     .get((req, res) => {
