@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table } from "react-bootstrap";
-import pizzaRow from "./pizzaRow";
+import PizzaRow from "./PizzaRow";
 
-const pizzaList = () => {
+const PizzaList = () => {
     //pizzas will be updated with this state
     const [pizzas, setPizzas] = useState([]);
 
@@ -22,7 +22,7 @@ const pizzaList = () => {
       const PizzaTable = () => {
         return pizzas.map((res, i) => {
             //create a pizza row to display
-            return <pizzaRow obj={res} key={i} />;
+            return <PizzaRow obj={res} key={i} />;
           });
       }
 
@@ -43,4 +43,4 @@ const pizzaList = () => {
       );
     }
 
-    export default pizzaList
+    export default PizzaList

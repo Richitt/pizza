@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const pizzaRow = (props) =>{
+const PizzaRow = (props) =>{
     const {_id, name, meatType, date} = props.obj;
 
     return (
@@ -15,4 +15,4 @@ const pizzaRow = (props) =>{
       );
 };
 
-export default pizzaRow
+export default PizzaRow

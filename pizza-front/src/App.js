@@ -4,14 +4,14 @@ import React from "react";
 import { Nav, Navbar, Container, Row, Col } 
         from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
-// Import Custom CSS
 import "./App.css";
-// Import from react-router-dom
 import { BrowserRouter as Router, Routes,
     Route, Link } from "react-router-dom";
-// Import other React Component
 import CreatePizza from 
     "./Components/createPizza.component";
+import PizzaList from 
+    "./Components/PizzaList.component";
+
 const App = () => {
       return (
         <Router>
@@ -33,6 +33,12 @@ const App = () => {
                         Create Pizza
                       </Link>
                     </Nav>
+                    <Nav>
+                        <Link to={"/PizzaList"} 
+                          className="nav-link">
+                          Pizza List
+                        </Link>
+                    </Nav>
                   </Nav>
                 </Container>
               </Navbar>
@@ -44,9 +50,11 @@ const App = () => {
                   <div className="wrapper">
                     <Routes>
                       <Route exact path="/" 
-                        element={CreatePizza} />
+                        element={CreatePizza()} />
                       <Route path="/createPizza" 
-                        element={CreatePizza} />
+                        element={CreatePizza()} />
+                      <Route path="/pizzaList" 
+                        element={PizzaList()} />
                     </Routes>
                   </div>
                 </Col>

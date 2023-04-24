@@ -9,6 +9,7 @@ const PizzaForm = (props) => {
     meatType: Yup.string().required("Required"),
     orderDate: Yup.date().required("Required"),
   });
+  console.log("came in here");
   console.log(props);
   return (
     <div className="form-wrapper">
