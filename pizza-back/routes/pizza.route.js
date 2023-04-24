@@ -82,12 +82,51 @@ function findStreak(list){
     return finalArray;
 }
 
-// Create Pizza
+function findMostPizza(list){
+    // given a list of pizza consumed dates
+    // store all into a map, and just go through all of it, storing the largest day/consumed
+    // return at end
+    var temp = JSON.parse(list);
+    const dayMap = new Map();
+    var largestDay = 0;
+    var largestConsumption = 0;
+    for(i = 0; i<temp.length; i++){
+        //converting to UTC to offset issues
+        var day = new Date(temp[i]["date"]).toUTCString();
+        if(dayMap.has(day)){
+            var curr = dayMap.get(day) + 1;
+            if(curr>largestConsumption){
+                largestDay = day;
+                largestConsumption = curr;
+            }
+        }
+        else{
+            dayMap.set(day, 1);
+            if(1>largestConsumption){
+                largestDay = day;
+                largestConsumption = 1;
+            }
+        }
+        
+    }
+    return largestDay;
+}
+//Get highest consumption day of a given month
+router.get('/pizzaMonth', async (req, res) => {
+    pizzaSchema.find({date: new Date(req.body.month)})
+    .then((result) => {
+        result = findMostPizza(JSON.stringify(result));
+        res.json(result);
+    })
+    .catch((err) => {
+        res.send(err)
+    })
+});
 
+// Create Pizza
 router.post("/createPizza", (req, res, next) => {
     pizzaSchema.create(req.body)
     .then((result) => {
-        console.log("aa" + result);
         res.json(result);
     })
     .catch((err) => {
