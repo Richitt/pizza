@@ -9,6 +9,7 @@ let mongoose = require("mongoose"),
 // imported schemas.
 let pizzaSchema = require("../models/Pizza");
 
+// grab our default provided csv
 let defaultFile = {};
 fs.readFile('./routes/defaultFile/data.csv', (err,inputD)=>{
     if(err){
@@ -16,6 +17,7 @@ fs.readFile('./routes/defaultFile/data.csv', (err,inputD)=>{
     }
     defaultFile = csvJSON(inputD);
 })
+//parse into usable string
 function csvJSON(csv){
     csv = csv+'';
     var lines=csv.split("\n");
@@ -63,9 +65,6 @@ router.get('/pizzaStreak', async (req, res) => {
         if(Object.keys(result).length === 0){
             pizzaSchema.create(defaultFile)
             .then((result) => {
-                
-                console.log("aa");
-                console.log(result);
                 result = helper.findStreak(JSON.stringify(result));
                 res.json(result);
             })
@@ -75,9 +74,6 @@ router.get('/pizzaStreak', async (req, res) => {
             
         }
         else{
-            
-            console.log("aa");
-            console.log(result);
             result = helper.findStreak(JSON.stringify(result));
             res.send(result);
         }
@@ -94,8 +90,6 @@ router.get('/pizzaMonthStreak', async (req, res) => {
         if(Object.keys(result).length === 0){
             pizzaSchema.create(defaultFile)
             .then((result) => {
-                console.log("aa");
-                console.log(result);
                 result = helper.findStreak(JSON.stringify(result));
                 res.json(result);
             })
