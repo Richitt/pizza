@@ -17,5 +17,7 @@ If all modules are installed, can run 'npm run dev' from the default folder to h
 This will require mongoDB to be installed in order to work. 
 https://www.mongodb.com/docs/manual/installation/ - simply installing this and having it run should be enough for the backend to work.
 
+In addition, npm will obviously be needed and installed.
+
 
 
