@@ -1,10 +1,13 @@
 // Import React
 import React from "react";
-// Import Bootstrap
+import pizza from './images/pizza.png';
+// Import Bootstrap for UI
 import { Nav, Navbar, Container, Row, Col } 
         from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
+
+//importing the routes and implementing them
 import { BrowserRouter as Router, Routes,
     Route, Link } from "react-router-dom";
 import CreatePizza from 
@@ -29,6 +32,8 @@ const App = () => {
                       Pizza App
                     </Link>
                   </Navbar.Brand>
+                  
+                  <img src={pizza} />
       
                   <Nav className="justify-content-end">
                     <Nav>
