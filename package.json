@@ -1,0 +1,24 @@
+{
+  "name": "pizza",
+  "version": "1.0.0",
+  "description": "Pizza-back is the backend, pizza-front is the front end.\r CD into both in two separate terminals and run npm start to have it start up.",
+  "main": "index.js",
+  "scripts": {
+    "server": "npm start --prefix pizza-back",
+    "client": "npm start --prefix pizza-front",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Richitt/pizza.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Richitt/pizza/issues"
+  },
+  "homepage": "https://github.com/Richitt/pizza#readme",
+  "dependencies": {
+    "concurrently": "^8.0.1"
+  }
+}
