@@ -1,4 +1,4 @@
-### 'Structure'
+# Structure
 
 Pizza-back is the backend, pizza-front is the front end.
 CD into both in two separate terminals, run npm install to acquire all reqs.
@@ -8,7 +8,7 @@ They both can run separately, but functionality will obviously not work for the 
 if both aren't up.
 
 
-### Concurrent (thanks concurrent) Run
+# Concurrent (thanks concurrent) Run
 If all modules are installed, can run 'npm run dev' from the default folder to have both simultaneously up.
 
 
