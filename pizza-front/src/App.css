@@ -19,6 +19,11 @@ body h3 {
 .table-wrapper {
   max-width: 700px;
 }
+
+.view-wrapper{
+  max-width:300px;
+  margin-bottom: 50px;
+}
   
 .edit-link {
   padding: 7px 10px;

@@ -11,6 +11,10 @@ import CreatePizza from
     "./Components/createPizza.component";
 import PizzaList from 
     "./Components/PizzaList.component";
+import PizzaScore from 
+    "./Components/PizzaScore.component";
+import PizzaPerson from 
+    "./Components/PizzaPerson.component";
 
 const App = () => {
       return (
@@ -38,6 +42,14 @@ const App = () => {
                           className="nav-link">
                           Pizza List
                         </Link>
+                        <Link to={"/PizzaScore"} 
+                          className="nav-link">
+                          Pizza Scores
+                        </Link>
+                        <Link to={"/PizzaPerson"} 
+                          className="nav-link">
+                          Pizza Persons
+                        </Link>
                     </Nav>
                   </Nav>
                 </Container>
@@ -55,6 +67,10 @@ const App = () => {
                         element={CreatePizza()} />
                       <Route path="/pizzaList" 
                         element={PizzaList()} />
+                      <Route path="/pizzaScore" 
+                        element={PizzaScore()} />
+                      <Route path="/pizzaPerson" 
+                        element={PizzaPerson()} />
                     </Routes>
                   </div>
                 </Col>

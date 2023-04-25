@@ -28,7 +28,7 @@ const CreatePizza = () =>{
     };
     //will return completion of form
     return(
-        <div>
+        <div className="view-wrapper">
         <form onSubmit={handleSubmit}>
             <label>Enter your name:
                 <input
